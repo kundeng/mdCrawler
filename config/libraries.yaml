@@ -1,0 +1,7 @@
+libraries:
+  - name: knime_python
+    url: https://knime-python.readthedocs.io
+    crawler:
+      include_patterns:
+        - ".*/en/stable/script-api\\.html$"  # Main API docs
+        - ".*/en/stable/extension-development\\.html$"  # Extension development docs

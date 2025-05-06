@@ -24,6 +24,7 @@ wheels/
 venv/
 env/
 ENV/
+.venv/
 
 # IDE
 .idea/
@@ -43,6 +44,14 @@ Thumbs.db
 # Project specific
 *.log
 .env
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*/*/*/__pycache__/
 
+# Generated documentation
+docs/*/
+
+# Project specific files
 crawler.knowledge.md
 mylib.yaml
