@@ -52,6 +52,9 @@ jobs:
         run: |
           echo "Generated documentation files:"
           find docs -type f | sort
+          
+      # Note: When running on GitHub, the following steps will use the GITHUB_TOKEN
+      # automatically provided by GitHub Actions. No need to set it manually.
       
       # Only run the following steps when on GitHub (not locally)
       - name: Configure Git

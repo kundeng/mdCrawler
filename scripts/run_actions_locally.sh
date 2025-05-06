@@ -111,10 +111,12 @@ if [ -n "$GITHUB_TOKEN" ]; then
     CMD="$CMD -s GITHUB_TOKEN=$GITHUB_TOKEN"
 fi
 
-# Load secrets from .env file if it exists
-if [ -f "$ENV_FILE" ]; then
+# Load secrets from .env file if it exists and not empty
+if [ -f "$ENV_FILE" ] && [ -s "$ENV_FILE" ]; then
     echo "Loading secrets from $ENV_FILE"
     CMD="$CMD --secret-file $ENV_FILE"
+else
+    echo "No secrets file found or file is empty. Continuing without secrets."
 fi
 
 # Use local actions if specified
