@@ -1,0 +1,79 @@
+name: Documentation Crawler
+
+on:
+  # Run on a schedule (every day at 2:00 UTC)
+  schedule:
+    - cron: '0 2 * * *'
+  
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  crawl-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Test workspace directory
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Listing files in current directory:"
+          ls -la
+          echo "Checking for config directory:"
+          ls -la config || echo "Config directory not found"
+          echo "Checking for libraries.yaml:"
+          ls -la config/libraries.yaml || echo "libraries.yaml file not found"
+          echo "Environment variables:"
+          env | grep GITHUB || echo "No GITHUB environment variables found"
+          echo "ACT environment variable: $ACT"
+      
+      - name: Set up Python
+        # Use a simpler approach for local testing compatibility
+        run: |
+          echo "Using system Python for local testing"
+          python --version
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+      
+      - name: Run documentation crawler
+        run: |
+          python main.py --config config/libraries.yaml
+          
+      - name: Show generated files
+        run: |
+          echo "Generated documentation files:"
+          find docs -type f | sort
+      
+      # Only run the following steps when on GitHub (not locally)
+      - name: Configure Git
+        if: ${{ !env.ACT }}
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+      
+      - name: Commit changes
+        if: ${{ !env.ACT }}
+        run: |
+          git add docs/
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Update documentation [automated]" -m "Documentation updated by GitHub Actions workflow"
+      
+      - name: Push changes
+        # This step will only run on GitHub, not locally with act
+        if: ${{ !env.ACT }}
+        # When on GitHub, use the push action
+        run: |
+          if [ -z "$ACT" ]; then
+            echo "Would use ad-m/github-push-action@master here when running on GitHub"
+            echo "Not using the action directly to avoid authentication issues during local testing"
+          fi
