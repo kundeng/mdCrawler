@@ -23,6 +23,8 @@ mdCrawler is a documentation-to-markdown converter tool designed to transform en
 7. **URL Pattern Filtering**: Supports include/exclude patterns for URL filtering
 8. **Custom Content Cleaners**: Allows for site-specific content cleaning
 9. **Environment Variable Configuration**: Supports configuration via environment variables
+10. **Local GitHub Actions Testing**: Provides a script for running GitHub Actions workflows locally with .env file support for secrets
+11. **GitHub Actions Integration**: Leverages GitHub's native interface for monitoring and triggering workflows
 
 ## Architecture
 The system is built using Python with the following key components:
@@ -35,18 +37,25 @@ The system is built using Python with the following key components:
 6. **CLI Interface**: Provides command-line interface for easy usage
 7. **Modular Structure**: Separates core functionality into src/ directory with main.py as entry point
 8. **Extensible Cleaners**: Supports custom content cleaning modules in config/cleaners/
+9. **GitHub Actions Tools**: Provides utilities for local testing and documentation for using GitHub's native interface
 
 ## Dependencies
 - Crawl4AI: Core web crawling functionality
 - Playwright: Browser automation for content extraction
 - Python 3.8+: Base programming language
 - YAML: Configuration file format
-- Act (optional): For local testing of GitHub Actions workflows
+- nektos/act: For local testing of GitHub Actions workflows
+- GitHub account: For accessing GitHub's native workflow interface
 
 ## Deployment Options
 1. **Python Package**: Run directly with Python in a virtual environment
 2. **Executable Binary**: Packaged as a standalone executable
-3. **GitHub Actions**: Run as part of automated workflows
+3. **GitHub Actions**: Run as part of automated workflows (implemented)
+   - Daily scheduled documentation updates
+   - Manual trigger option
+   - Automatic commit and push of changes
+   - Local testing with nektos/act
+   - Monitoring and triggering via GitHub's native interface
 4. **Docker Container**: Run in an isolated container environment
 
 ## Use Cases
@@ -56,9 +65,10 @@ The system is built using Python with the following key components:
 4. Documentation backups
 5. Custom documentation styling
 6. Automated documentation updates via CI/CD
+7. Monitoring and triggering of GitHub Actions workflows via GitHub's interface
 
 ## Project Status
-Active development - Refactoring for improved modularity and distribution
+Active development - Refactoring completed, GitHub Actions workflow and tools implemented, preparing for Python-to-EXE packaging
 
 ## Last Updated
-[2025-05-06 11:04:00] - Updated with project refactoring goals and enhanced features
+[2025-05-06 13:09:00] - Updated with environment file support for local GitHub Actions testing

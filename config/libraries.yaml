@@ -5,3 +5,12 @@ libraries:
       include_patterns:
         - ".*/en/stable/script-api\\.html$"  # Main API docs
         - ".*/en/stable/extension-development\\.html$"  # Extension development docs
+  
+  - name: nektos_act
+    url: https://nektosact.com
+    crawler:
+      include_patterns:
+        - ".*/usage/.*\\.html$"  # Usage documentation
+        - ".*/installation/.*\\.html$"  # Installation documentation
+        - ".*/configuration/.*\\.html$"  # Configuration documentation
+        - ".*/runners/.*\\.html$"  # Runners documentation

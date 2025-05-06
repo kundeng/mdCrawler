@@ -26,7 +26,31 @@ The refactored system implements a plugin architecture for content cleaners:
 - Cleaners are specified in the configuration and applied to the generated markdown
 
 ### 7. Entry Point Pattern
-The project is being refactored to use a thin entry point (main.py) that delegates to the core implementation in src/main.py, facilitating packaging as a distributable binary.
+The project uses a thin entry point (main.py) that delegates to the core implementation in src/md_crawler.py, facilitating packaging as a distributable binary.
+
+### 8. Scheduled Automation Pattern
+The system implements a GitHub Actions workflow for automated, scheduled execution:
+- Daily scheduled runs for documentation updates
+- Manual trigger option for on-demand updates
+- Automatic commit and push of generated documentation
+- Configurable execution environment through GitHub Actions
+
+### 9. Local Development Simulation Pattern
+The system provides a local simulation environment for GitHub Actions:
+- Local execution of workflows using nektos/act
+- Command-line interface for workflow testing
+- Docker-based simulation of GitHub Actions runners
+- Configurable event triggers and workflow selection
+- Environment file (.env) support for secrets management
+- Automatic installation of required tools
+
+### 10. Native Interface Integration Pattern
+The system leverages GitHub's native interface for workflow monitoring and management:
+- Documentation directs users to GitHub's existing workflow UI
+- Utilizes GitHub's built-in monitoring and triggering capabilities
+- Reduces implementation complexity and maintenance burden
+- Ensures users have access to all GitHub Actions features
+- Follows the principle of not reinventing existing functionality
 
 ## Design Principles
 
@@ -62,17 +86,18 @@ The code structure allows for:
 - Implementing custom scraping strategies
 
 ### 5. Deployability
-The refactored architecture supports multiple deployment options:
+The architecture supports multiple deployment options:
 - Python package with virtual environment
 - Standalone executable binary
-- GitHub Actions workflow
+- GitHub Actions workflow (implemented)
 - Docker container
+- GitHub's native interface for workflow monitoring
 
 ## Code Organization
 
 ### 1. Entry Point Structure
 - **main.py**: Thin entry point with minimal logic
-- **src/main.py**: Core implementation with enhanced features
+- **src/md_crawler.py**: Core implementation with enhanced features
 
 ### 2. Configuration System
 - **libraries.yaml**: Root configuration file
@@ -94,9 +119,12 @@ The refactored architecture supports multiple deployment options:
 ### 5. Extension Points
 - **config/cleaners/**: Directory for custom content cleaner plugins
 - Custom scraping strategies via configuration
+- **.github/workflows/**: Directory for GitHub Actions workflow definitions
+- **scripts/**: Directory for utility scripts like local GitHub Actions runner
 
 ## Data Flow
 
+### Main Application Flow
 1. **Input**: URL or configuration file (with environment variable support)
 2. **Configuration Processing**: Load and merge configurations
 3. **Link Discovery**: Extract all internal links from main page
@@ -106,5 +134,19 @@ The refactored architecture supports multiple deployment options:
 7. **Markdown Generation**: Convert filtered content to Markdown
 8. **Output**: Save Markdown files to organized directory structure
 
+### GitHub Actions Local Runner Flow
+1. **Input**: Command-line arguments specifying workflow and event type
+2. **Tool Detection**: Check for nektos/act installation and install if needed
+3. **Command Construction**: Build the act command with appropriate parameters
+4. **Execution**: Run the GitHub Actions workflow locally using Docker
+5. **Output**: Display workflow execution results
+
+### GitHub Native Interface Flow
+1. **Input**: User interactions with GitHub's web interface
+2. **Authentication**: GitHub's built-in authentication system
+3. **Workflow Management**: List, monitor, and trigger workflows through GitHub UI
+4. **Notification**: GitHub's notification system for workflow status updates
+5. **Output**: Display workflow status and results in GitHub's interface
+
 ## Last Updated
-[2025-05-06 11:06:00] - Updated with refactored architecture patterns
+[2025-05-06 12:50:00] - Updated with simplified GitHub Actions approach

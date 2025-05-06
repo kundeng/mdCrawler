@@ -32,6 +32,18 @@ This file tracks tasks, milestones, and progress for the mdCrawler project.
 
 ## Completed Tasks
 
+### [2025-05-06 12:21:00] - GitHub Actions Integration
+**Status**: Completed
+**Description**: Implemented GitHub Actions workflow for automated documentation updates
+**Priority**: Medium
+**Dependencies**: None
+**Outcome**:
+- Created .github/workflows/doc-crawler.yml workflow file
+- Configured daily scheduled runs at 2:00 UTC
+- Added manual trigger option via workflow_dispatch
+- Set up automatic commits and pushes for documentation updates
+- Configured proper Git user for automated commits
+
 ### [2025-05-06 12:01:00] - Project Refactoring
 **Status**: Completed
 **Description**: Refactor the project for improved modularity and distribution
@@ -65,17 +77,35 @@ This file tracks tasks, milestones, and progress for the mdCrawler project.
 **Priority**: High
 **Dependencies**: Entry Point Refactoring
 
-### [2025-05-06 11:08:00] - GitHub Actions Workflow
-**Status**: Planned
-**Description**: Implement GitHub Actions workflow for automated documentation updates
-**Priority**: Medium
-**Dependencies**: None
-
-### [2025-05-06 11:08:00] - Local GitHub Actions Testing
-**Status**: Planned
+### [2025-05-06 12:36:00] - Local GitHub Actions Testing
+**Status**: Completed
 **Description**: Set up local testing with "act" library to simulate GitHub Actions
 **Priority**: Medium
 **Dependencies**: GitHub Actions Workflow
+**Outcome**:
+- Created scripts/run_actions_locally.sh script for running GitHub Actions locally
+- Added support for specifying workflow files, event types, and other options
+- Implemented automatic installation of nektos/act tool
+- Added support for loading secrets from .env file using official nektos/act methods
+- Created .env.template as a starting point for users
+- Created comprehensive documentation in README_GITHUB_ACTIONS.md based on official nektos/act docs
+- Added nektos/act documentation to the project using our mdCrawler tool
+- Simplified the script based on official nektos/act documentation for better maintainability
+- Added container architecture flag for better compatibility across different systems
+- Fixed GitHub Actions workflow to properly use checkout action for local testing
+- Updated workflow to install Playwright and show generated files
+
+### [2025-05-06 12:48:00] - GitHub Actions Documentation Update
+**Status**: Completed
+**Description**: Update documentation to use GitHub's native interface for monitoring and triggering workflows
+**Priority**: Medium
+**Dependencies**: GitHub Actions Workflow
+**Outcome**:
+- Updated README_GITHUB_ACTIONS.md with instructions for using GitHub's native interface
+- Added guidance for monitoring workflow runs through GitHub's UI
+- Added instructions for manually triggering workflows
+- Added troubleshooting tips for GitHub Actions issues
+- Simplified the approach by leveraging GitHub's existing features
 
 ### [2025-05-06 11:08:00] - Virtual Environment Setup
 **Status**: Planned
@@ -108,6 +138,14 @@ This file tracks tasks, milestones, and progress for the mdCrawler project.
 **Dependencies**: None
 
 ## Completed Milestones
+
+### [2025-05-06 12:48:00] - GitHub Actions Tooling
+**Description**: Implemented GitHub Actions tooling for local testing and documentation for using GitHub's native interface
+**Key Achievements**:
+- Created local GitHub Actions runner script using nektos/act
+- Added comprehensive documentation for local testing
+- Provided guidance for using GitHub's native interface for monitoring and triggering
+- Simplified the approach by leveraging GitHub's existing features
 
 ### [2025-05-06 11:08:00] - Enhanced Configuration System
 **Description**: Implemented improved configuration handling with environment variables and URL patterns

@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  scraper:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../config:/app/config
+      - ../docs:/app/docs
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CONFIG_PATH=/app/config/libraries.yaml
+      - OUTPUT_DIR=/app/docs
+    command: python src/main.py --config config/libraries.yaml
